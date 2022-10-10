@@ -36,10 +36,11 @@ class Install extends Command
                 $this->warn('Password cannot be empty!');
             }
 
-            $this->setEnv(['APP_PASSWORD' => $password]);
-
+            Artisan::call('key:generate');
             Artisan::call('storage:link', ['--force' => true], $this->output);
             Artisan::call('migrate', ['--force' => true], $this->output);
+
+            $this->setEnv(['APP_PASSWORD' => $password]);
         }
 
         return CommandAlias::SUCCESS;
