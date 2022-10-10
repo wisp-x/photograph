@@ -22,6 +22,12 @@ git clone https://github.com/wisp-x/photograph.git photograph && cd photograph
 composer install
 ```
 
+- 复制环境变量
+
+```shell
+cp .env.example .env
+```
+
 - 执行安装
 
 ```shell
