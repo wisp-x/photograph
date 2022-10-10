@@ -15,6 +15,6 @@ return [
     |
     */
 
-    'driver' => 'gd'
+    'driver' => env('APP_IMAGE_DRIVER', 'gd')
 
 ];

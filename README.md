@@ -46,16 +46,17 @@ location / {
 
 > 程序所有可用配置都是通过修改根目录环境变量文件(.env文件)进行设置。
 
-| 配置名                     | 配置值                   | 说明               |
-|-------------------------|-----------------------|------------------|
-| APP_URL                 | http://127.0.0.1:8000 | 站点域名             |
-| APP_PASSWORD            | admin                 | 后台密码             |
-| APP_PHOTO_DISK          | public                | 图片使用磁盘           |
-| APP_PHOTO_PATH          | photos                | 图片保存路径           |
-| APP_THUMBNAIL_DISK      | public                | 缩略图保存磁盘          |
-| APP_THUMBNAIL_PATH      | thumbnails            | 缩略图保存路径          |
-| APP_THUMBNAIL_QUALITY   | 60                    | 缩略图保存质量，取值 1-100 |
-| APP_THUMBNAIL_MAX_SCALE | 1000                  | 缩略图最大尺寸          |
+| 配置名                     | 配置值                   | 说明                 |
+|-------------------------|-----------------------|--------------------|
+| APP_IMAGE_DRIVER        | gd                    | 图片处理驱动(gd/imagick) |
+| APP_URL                 | http://127.0.0.1:8000 | 站点域名               |
+| APP_PASSWORD            | admin                 | 后台密码               |
+| APP_PHOTO_DISK          | public                | 图片使用磁盘             |
+| APP_PHOTO_PATH          | photos                | 图片保存路径             |
+| APP_THUMBNAIL_DISK      | public                | 缩略图保存磁盘            |
+| APP_THUMBNAIL_PATH      | thumbnails            | 缩略图保存路径            |
+| APP_THUMBNAIL_QUALITY   | 60                    | 缩略图保存质量，取值 1-100   |
+| APP_THUMBNAIL_MAX_SCALE | 1000                  | 缩略图最大尺寸            |
 
 ### 磁盘配置
 
