@@ -81,16 +81,16 @@ class Photo extends Model
                 $fNumber = data_get($exif, 'COMPUTED.ApertureFNumber');
             }
 
+            // 曝光时间
+            $exposureTime = $exif->get('ExposureTime');
+
+            // 感光度
+            $iso = $exif->get('PhotographicSensitivity', $exif->get('ISOSpeedRatings'));
+
             // 镜头信息
             $lens = '';
-            if ($focalLength && $fNumber) {
-                $lens = sprintf(
-                    '%smm %s %ss ISO %s',
-                    $focalLength, // 焦距
-                    data_get($exif, 'COMPUTED.ApertureFNumber'), // 光圈
-                    $exif->get('ExposureTime'), // 曝光时间
-                    $exif->get('PhotographicSensitivity', $exif->get('ISOSpeedRatings')) // 感光度
-                );
+            if ($focalLength && $fNumber && $exposureTime && $iso) {
+                $lens = sprintf('%smm %s %ss ISO %s', $focalLength, $fNumber, $exposureTime, $iso);
             }
 
             return collect([
