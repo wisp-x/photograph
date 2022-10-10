@@ -72,21 +72,30 @@ class Photo extends Model
                 $focalLength = sprintf('%.1f', $a / $b);
             }
 
+            // 光圈
+            $fNumber = $exif->get('FNumber');
+            if ($fNumber) {
+                [$a, $b] = explode('/', $focalLength);
+                $fNumber = sprintf('%.1f', $a / $b);
+            } else {
+                $fNumber = data_get($exif, 'COMPUTED.ApertureFNumber');
+            }
+
             // 镜头信息
             $lens = '';
-            if ($focalLength && $exif->has(['COMPUTED', 'ExposureTime', 'ISOSpeedRatings'])) {
+            if ($focalLength && $fNumber) {
                 $lens = sprintf(
                     '%smm %s %ss ISO %s',
                     $focalLength, // 焦距
                     data_get($exif, 'COMPUTED.ApertureFNumber'), // 光圈
                     $exif->get('ExposureTime'), // 曝光时间
-                    $exif->get('ISOSpeedRatings') // 感光度
+                    $exif->get('PhotographicSensitivity', $exif->get('ISOSpeedRatings')) // 感光度
                 );
             }
 
             return collect([
                 'camera' => sprintf('%s %s', $exif->get('Make'), $exif->get('Model')), // 相机信息
-                'lens_model' => $exif->get('UndefinedTag:0xA434'), // 镜头型号
+                'lens_model' => $exif->get('LensModel', $exif->get('UndefinedTag:0xA434')), // 镜头型号
                 'lens' => $lens,
                 'size' => sprintf('%s * %s', data_get($exif, 'COMPUTED.Width'), data_get($exif, 'COMPUTED.Height')), // 照片尺寸
             ])->transform(fn ($item) => trim($item))->filter();
