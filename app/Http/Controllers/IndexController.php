@@ -11,7 +11,7 @@ class IndexController extends Controller
 {
     public function index(): View
     {
-        $albums = Album::query()->with('photos')->paginate(20);
+        $albums = Album::query()->with('photos')->latest()->paginate(20);
 
         return view('index', compact('albums'));
     }
