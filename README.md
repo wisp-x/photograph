@@ -34,7 +34,13 @@ cp .env.example .env
 php artisan install
 ```
 
-> 根据指引安装完成后，需在网站设置中将程序的 `public` 目录设置为运行目录，后台地址为 http(s)://域名/admin。
+> 根据指引安装完成后，需在网站设置中将程序的 `public` 目录设置为运行目录并设置伪静态：
+```
+location / {  
+    try_files $uri $uri/ /index.php$is_args$query_string;  
+}
+```
+> 后台地址为 http(s)://域名/admin。
 
 ### 系统配置
 
