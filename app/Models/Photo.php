@@ -75,7 +75,7 @@ class Photo extends Model
             // 光圈
             $fNumber = $exif->get('FNumber');
             if ($fNumber) {
-                [$a, $b] = explode('/', $focalLength);
+                [$a, $b] = explode('/', $fNumber);
                 $fNumber = sprintf('%.1f', $a / $b);
             } else {
                 $fNumber = data_get($exif, 'COMPUTED.ApertureFNumber');
