@@ -4,7 +4,7 @@
     <div class="bg-black/80 text-gray-100 h-screen relative inset-0 w-full bg-center" style="background-image: url({{ $photo->url }})">
         <div class="flex flex-col justify-between w-full h-full transform-gpu backdrop-blur-xl backdrop-brightness-50">
             <header class="flex w-full p-4 bg-black/20">
-                <a href="javascript:history.go(-1)" class="flex items-center justify-center h-8 w-8 rounded-full transition-all bg-gray-500/60 hover:bg-gray-600/50">
+                <a href="{{ request()->has('back_url') ? base64_decode(request('back_url')) : route('home') }}" class="flex items-center justify-center h-8 w-8 rounded-full transition-all bg-gray-500/60 hover:bg-gray-600/50">
                     <x-icons.back class="fill-gray-200"></x-icons.back>
                 </a>
             </header>

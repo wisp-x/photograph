@@ -17,7 +17,7 @@
                         <div class="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                             @foreach($album->photos->sortByDesc('weigh') as $photo)
                                 <div @class(['relative w-full overflow-hidden group', 'col-span-1 md:col-span-2 lg:col-span-4 md:max-h-96' => $loop->first, 'md:h-32' => ! $loop->first])>
-                                    <a href="{{ route('photo', ['id' => $album->id, 'hash' => $photo->md5]) }}">
+                                    <a href="{{ route('photo', ['id' => $album->id, 'hash' => $photo->md5, 'back_url' => base64_encode(request()->fullUrl())]) }}">
                                         <img class="w-full h-full object-center object-cover shadow-xl rounded-xl" alt="{{ $photo->intro }}" src="{{ $photo->thumbnail_url }}">
                                     </a>
                                     <div class="w-full transition-all absolute bottom-0 md:-bottom-10 md:group-hover:bottom-0">
