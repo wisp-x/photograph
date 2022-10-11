@@ -48,7 +48,7 @@
 
             <footer class="flex w-full h-20 p-2 bg-black/20 overflow-y-hidden overflow-x-auto gap-2 snap-x snap-mandatory">
                 @foreach($album->photos->sortByDesc('weigh') as $item)
-                    <a href="{{ route('photo', ['id' => $album->id, 'hash' => $item->md5]) }}" @class(['snap-center shrink-0 h-full transition-all border-2 hover:border-gray-200 rounded-md shadow-md overflow-hidden', 'border-transparent' => $item->id !== $photo->id])>
+                    <a href="{{ route('photo', ['id' => $album->id, 'hash' => $item->md5, 'back_url' => request('back_url')]) }}" @class(['snap-center shrink-0 h-full transition-all border-2 hover:border-gray-200 rounded-md shadow-md overflow-hidden', 'border-transparent' => $item->id !== $photo->id])>
                         <img class="h-full object-contain object-center" alt="{{ $item->intro }}" src="{{ $item->thumbnail_url }}">
                     </a>
                 @endforeach
