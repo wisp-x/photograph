@@ -51,7 +51,7 @@
             let i = this.files.length;
             Array.prototype.forEach.call(this.files, function(file) {
                 queue.push(function (cb) {
-                    $message.text('正在处理中，剩余 ' + i + ' 张图片，请稍后...');
+                    $message.text('正在处理中，请不要关闭窗口，剩余 ' + i + ' 张图片，请稍后...');
                     axios.postForm('{{ route('photos.upload') }}', {
                         photo: file,
                     }).then(function (result) {
