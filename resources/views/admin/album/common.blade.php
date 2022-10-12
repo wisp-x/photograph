@@ -26,7 +26,7 @@
         });
 
         // 刷新照片选择限制
-        var photoRequiredCheck = function () {
+        const photoRequiredCheck = function () {
             setTimeout(function () {
                 $('#photos').attr('required', $('.photo-item').length <= 0);
             }, 100)
@@ -35,40 +35,45 @@
         photoRequiredCheck();
 
         $(document).on('change', '#photos', function () {
-            var self = this;
+            let self = this;
 
             if (this.files.length > 20) {
                 $(this).val('');
                 return alert('选择的照片太多了');
             }
 
-            const formData = new FormData();
-            Array.prototype.forEach.call(this.files, function(file) {
-                formData.append('photos[]', file);
-            });
+            const queue = new Queue();
 
             const $message = $('#upload-message');
-            var message = $message.text();
-            $(this).attr('disabled', true);
-            $message.text('正在处理中，请稍后...');
-            axios.post('{{ route('photos.upload') }}', formData, {
-                'Content-Type': 'multipart/form-data',
-            }).then(function (result) {
-                var html = '';
-                var photos = result.data;
-                var length = $('.photo-item').length;
-                for (const k in photos) {
-                    html += $('#photo-item-tpl').html()
-                        .replace(/__index__/g, length + k)
-                        .replace(/__id__/g, photos[k].id)
-                        .replace(/__filename__/g, photos[k].filename.replace(/\$/g, '$$$$'))
-                        .replace(/__url__/g, photos[k].url)
-                        .replace(/__thumbnail_url__/g, photos[k].thumbnail_url);
-                }
-                $('#photo-items').append(html);
-            }).catch(function (error) {
-                alert('系统出现错误\r\n' + error.toString())
-            }).finally(function () {
+            let message = $message.text();
+            $(self).attr('disabled', true);
+
+            let i = this.files.length;
+            Array.prototype.forEach.call(this.files, function(file) {
+                queue.push(function (cb) {
+                    $message.text('正在处理中，剩余 ' + i + ' 张图片，请稍后...');
+                    axios.postForm('{{ route('photos.upload') }}', {
+                        photo: file,
+                    }).then(function (result) {
+                        let html = '';
+                        let photo = result.data;
+                        html += $('#photo-item-tpl').html()
+                            .replace(/__index__/g, $('.photo-item').length + 1)
+                            .replace(/__id__/g, photo.id)
+                            .replace(/__filename__/g, photo.filename.replace(/\$/g, '$$$$'))
+                            .replace(/__url__/g, photo.url)
+                            .replace(/__thumbnail_url__/g, photo.thumbnail_url);
+                        $('#photo-items').append(html);
+                    }).catch(function (error) {
+                        console.error('系统出现错误\r\n' + error.toString())
+                    }).finally(function () {
+                        i--;
+                        cb();
+                    });
+                });
+            });
+
+            queue.start(function () {
                 $(self).attr('disabled', false).val('');
                 $message.text(message);
                 photoRequiredCheck();
@@ -76,7 +81,7 @@
         });
 
         $(document).on('click', '.photo-remove', function () {
-            var self = this;
+            let self = this;
             axios.delete('{{ route('photos.destroy') }}', {
                 data: {id: $(this).data('id')},
             }).then(function () {

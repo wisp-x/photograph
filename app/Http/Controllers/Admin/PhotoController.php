@@ -12,27 +12,23 @@ class PhotoController extends Controller
 {
     public function upload(Request $request, PhotoService $service): array
     {
-        /** @var array<UploadedFile> $photos */
-        $photos = $request->file('photos') ?: [];
+        /** @var UploadedFile $photo */
+        $photo = $request->file('photo');
 
         @ini_set('memory_limit', '1G');
 
-        $array = [];
-        /** @var UploadedFile $item */
-        foreach ($photos as $item) {
-            try {
-                $array[] = $service->store($item);
-            } catch (\Throwable $e) {
-                Log::error('上传图片时发生异常', [
-                    'file' => $e->getFile(),
-                    'line' => $e->getLine(),
-                    'message' => $e->getMessage(),
-                    'filename' => $item->getClientOriginalName(),
-                    'filesize' => $item->getSize() / 1024,
-                    'trace' => $e->getTraceAsString(),
-                ]);
-                continue;
-            }
+        try {
+            $array = $service->store($photo);
+        } catch (\Throwable $e) {
+            Log::error('上传图片时发生异常', [
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'message' => $e->getMessage(),
+                'filename' => $photo->getClientOriginalName(),
+                'filesize' => $photo->getSize() / 1024,
+                'trace' => $e->getTraceAsString(),
+            ]);
+            abort(422, $e->getMessage());
         }
 
         return $array;

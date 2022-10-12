@@ -41,3 +41,6 @@ window.Sortable = Sortable;
 
 import Viewer from 'viewerjs';
 window.Viewer = Viewer;
+
+import Queue from './queue';
+window.Queue = Queue;
