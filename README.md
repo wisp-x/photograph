@@ -147,6 +147,7 @@ location / {
 - 默认使用本地磁盘，图片储存根文件夹都处于 `storage/app/public`，更改磁盘只需要修改 `APP_PHOTO_DISK`
   即可，例如 `APP_PHOTO_DISK=cos`。
 - 建议上传带有 exif 数据的图片，程序会在处理需要的信息后移除该图片的 exif 信息，无需担心泄漏数据。
+- 建议图片质量不要超过 75，否则会造成图片过大。
 - 使用本地储存，站点迁移到其他服务器后需要删除 `public` 目录下的符号连接(uploads)，然后通过命令 `php artisan storage:link`
   重新生成。
 
