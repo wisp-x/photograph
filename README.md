@@ -53,6 +53,7 @@ location / {
 | APP_PASSWORD            | admin                 | 后台密码               |
 | APP_PHOTO_DISK          | public                | 图片使用磁盘             |
 | APP_PHOTO_PATH          | photos                | 图片保存路径             |
+| APP_PHOTO_QUALITY       | 75                    | 图片保存质量，取值 1-100    |
 | APP_THUMBNAIL_DISK      | public                | 缩略图保存磁盘            |
 | APP_THUMBNAIL_PATH      | thumbnails            | 缩略图保存路径            |
 | APP_THUMBNAIL_QUALITY   | 60                    | 缩略图保存质量，取值 1-100   |
