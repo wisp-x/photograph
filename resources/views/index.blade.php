@@ -35,8 +35,8 @@
                 {{ $albums->links('vendor.pagination.app') }}
             </div>
         </div>
-        <div class="text-center text-gray-400 text-sm my-4">
-            &copy; 2018 - {{ date('Y') }} | Copyright by <a target="_blank" href="https://github.com/wisp-x">Wisp X</a>
+        <div class="text-center text-gray-400 text-sm py-4">
+            &copy; 2022 - {{ date('Y') }} | Copyright by <a target="_blank" href="https://github.com/wisp-x">Wisp X</a>
         </div>
     </div>
 @endsection
