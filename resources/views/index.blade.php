@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="bg-black/80 text-gray-100 h-full min-h-screen">
-        <div class="max-w-screen-md mx-auto">
+        <div class="max-w-screen-md md:max-w-screen-lg mx-auto">
             <section class="flex flex-col w-full pt-20 pb-24 p-4 space-y-20">
 
                 @foreach($albums as $album)
