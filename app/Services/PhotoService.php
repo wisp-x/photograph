@@ -30,7 +30,7 @@ class PhotoService
 
         // 获取 exif 信息
         $exif = [];
-        foreach ($image->exif() as $key => $value) {
+        foreach (($image->exif() ?: []) as $key => $value) {
             if (! mb_check_encoding($value)) {
                 continue;
             }
