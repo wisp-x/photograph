@@ -45,7 +45,7 @@ class Photo extends Model
         'exif' => 'collection',
     ];
 
-    protected static function booted()
+    protected static function booted(): void
     {
         static::deleting(function (self $photo) {
             // 删除缩略图
