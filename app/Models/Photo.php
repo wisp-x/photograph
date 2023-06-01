@@ -104,16 +104,12 @@ class Photo extends Model
 
     public function url(): Attribute
     {
-        return new Attribute(function () {
-            return Storage::disk(config('app.photo_disk'))->url($this->pathname);
-        });
+        return new Attribute(fn () => Storage::disk(config('app.photo_disk'))->url($this->pathname));
     }
 
     public function thumbnailUrl(): Attribute
     {
-        return new Attribute(function () {
-            return Storage::disk(config('app.thumbnail_disk'))->url($this->thumbnail_pathname);
-        });
+        return new Attribute(fn () => Storage::disk(config('app.thumbnail_disk'))->url($this->thumbnail_pathname));
     }
 
     public function album(): BelongsTo

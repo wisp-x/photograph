@@ -44,7 +44,7 @@ class AlbumController extends Controller
         ]);
     }
 
-    public function destroy(Album $album, AlbumService $service)
+    public function destroy(Album $album, AlbumService $service): void
     {
         $service->destroy([$album->id]);
     }

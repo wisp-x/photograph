@@ -40,13 +40,16 @@ class PhotoService
 
         // 移除 exif 信息
         if (strtolower($image->getDriver()->getDriverName()) === 'imagick') {
-            /** @var \Imagick $imagick */
-            $imagick = $image->getCore();
+            try {
+                /** @var \Imagick $imagick */
+                $imagick = $image->getCore();
 
-            $profiles = $imagick->getImageProfiles('icc');
-            $imagick->stripImage();
-            if(! empty($profiles)) {
-                $imagick->profileImage("icc", $profiles['icc']);
+                $profiles = $imagick->getImageProfiles('icc');
+                $imagick->stripImage();
+                if(! empty($profiles)) {
+                    $imagick->profileImage("icc", $profiles['icc']);
+                }
+            } catch (\ImagickException $e) {
             }
         }
 

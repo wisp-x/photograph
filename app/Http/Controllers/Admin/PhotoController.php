@@ -34,7 +34,7 @@ class PhotoController extends Controller
         return $array;
     }
 
-    public function destroy(Request $request, PhotoService $service)
+    public function destroy(Request $request, PhotoService $service): void
     {
         $service->destroy([$request->post('id')]);
     }
